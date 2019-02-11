@@ -1,4 +1,28 @@
 defmodule Exenv.Adapters.Yaml do
+  @moduledoc """
+  Loads env vars from `.yml` files.
+
+  Below is a simple example of a `.yml` file:
+
+      prod:
+        key1: val
+        key2: val
+
+      dev:
+        key1: val
+        key2: val
+
+      test:
+        key1: val
+        key2: val
+
+  Assuming we have the above file in our project root directory, we would be
+  able to access any of the above environment vars.
+
+      System.get_env("KEY1")
+
+  """
+
   use Exenv.Adapter
 
   @env Mix.env() |> to_string()

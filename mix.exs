@@ -5,7 +5,7 @@ defmodule ExenvYaml.MixProject do
 
   def project do
     [
-      app: :exenv,
+      app: :exenv_yaml,
       version: @version,
       elixir: "~> 1.7",
       start_permanent: Mix.env() == :prod,
@@ -50,7 +50,7 @@ defmodule ExenvYaml.MixProject do
   defp deps do
     [
       {:yaml_elixir, "~> 2.1.0"},
-      {:exenv, git: "https://github.com/nsweeting/exenv.git", branch: "v0.2"},
+      {:exenv, "~> 0.2.0"},
       {:ex_doc, "~> 0.19", only: :dev, runtime: false}
     ]
   end
