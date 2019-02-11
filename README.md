@@ -1,5 +1,8 @@
 # Exenv Yaml
 
+[![Build Status](https://travis-ci.org/nsweeting/exenv_yaml.svg?branch=master)](https://travis-ci.org/nsweeting/exenv_yaml)
+[![Exenv Yaml Version](https://img.shields.io/hexpm/v/exenv_yaml.svg)](https://hex.pm/packages/exenv_yaml)
+
 This is a YAML adapter for [Exenv](https://github.com/nsweeting/exenv).
 
 ## Installation
