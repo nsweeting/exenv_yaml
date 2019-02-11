@@ -10,7 +10,7 @@ defmodule Exenv.Adapters.Yaml do
     * `:file` - The file path in which to read the `.yml` from. By default this
     is a `secrets.yml` file in your projects root directory.
     * `:env` - The env to use for the secrets. By default this is the value from
-    `Mix.env/0`.
+    `Mix.env/0`. Must be a string.
   """
   @impl true
   def load(opts) do
