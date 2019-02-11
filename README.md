@@ -7,8 +7,7 @@ This is a YAML adapter for [Exenv](https://github.com/nsweeting/exenv).
 
 ## Installation
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `exenv_yaml` to your list of dependencies in `mix.exs`:
+This package can be installed by adding `exenv_yaml` to your list of dependencies in `mix.exs`. Ensure you also have `exenv` in your dependencies.
 
 ```elixir
 def deps do
