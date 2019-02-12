@@ -22,19 +22,20 @@ defmodule Exenv.Adapters.YamlTest do
 
   describe "load/1" do
     test "will set env vars from a specified yaml file" do
-      refute_vars(@test_vars)
+      refute_vars(@test_vars ++ [{"GOOD_KEY3", "baz"}])
 
       Yaml.load(file: @test_yaml)
 
       assert_vars(@test_vars)
     end
 
-    test "will set env vars from a specified yaml file and env" do
-      refute_vars(@test_vars)
+    test "will set env vars from a specified yaml file and keys" do
+      vars = @test_vars ++ [{"GOOD_KEY3", "baz"}]
+      refute_vars(vars)
 
-      Yaml.load(file: @test_yaml, env: "dev")
+      Yaml.load(file: @test_yaml, keys: ["dev", "other"])
 
-      assert_vars(@test_vars)
+      assert_vars(vars)
     end
 
     test "will return an error tuple when the file doesnt exist" do

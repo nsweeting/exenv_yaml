@@ -25,7 +25,7 @@ defmodule Exenv.Adapters.Yaml do
 
   use Exenv.Adapter
 
-  @env Mix.env() |> to_string()
+  @keys [Mix.env() |> to_string()]
 
   @doc """
   Loads the system env vars from a `.yml` specified in the options.
@@ -33,8 +33,8 @@ defmodule Exenv.Adapters.Yaml do
   ## Options
     * `:file` - The file path in which to read the `.yml` from. By default this
     is a `secrets.yml` file in your projects root directory.
-    * `:env` - The env to use for the secrets. By default this is the value from
-    `Mix.env/0`. Must be a string.
+    * `:keys` - A list of string keys within the YAML file to use for the secrets. By
+    default this is just the value from `Mix.env/0`.
   """
   @impl true
   def load(opts) do
@@ -46,14 +46,14 @@ defmodule Exenv.Adapters.Yaml do
   end
 
   defp get_opts(opts) do
-    default_opts = [file: File.cwd!() <> "/secrets.yml", env: @env]
+    default_opts = [file: File.cwd!() <> "/secrets.yml", keys: @keys]
     Keyword.merge(default_opts, opts)
   end
 
   defp parse(opts) do
     with {:ok, raw} <- File.read(opts[:file]),
          {:ok, yaml} <- read_yaml(raw) do
-      parse_yaml(yaml, opts[:env])
+      parse_yaml(yaml, opts[:keys])
     end
   end
 
@@ -64,10 +64,12 @@ defmodule Exenv.Adapters.Yaml do
     end
   end
 
-  defp parse_yaml(yaml, env) when is_map(yaml) and is_binary(env) do
+  defp parse_yaml(yaml, keys) when is_map(yaml) and is_list(keys) do
     env_vars =
       yaml
-      |> Map.get(env, [])
+      |> Map.take(keys)
+      |> Map.values()
+      |> Stream.flat_map(& &1)
       |> Stream.map(&parse_var/1)
       |> Stream.filter(&(valid_var?(&1) == true))
       |> Enum.to_list()

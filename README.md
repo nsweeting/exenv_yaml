@@ -7,13 +7,12 @@ This is a YAML adapter for [Exenv](https://github.com/nsweeting/exenv).
 
 ## Installation
 
-This package can be installed by adding `exenv_yaml` to your list of dependencies in `mix.exs`. Ensure you also have `exenv` in your dependencies.
+This package can be installed by adding `exenv_yaml` to your list of dependencies in `mix.exs`.
 
 ```elixir
 def deps do
   [
-    {:exenv, "~> 0.2.0"},
-    {:exenv_yaml, "~> 0.1.0"}
+    {:exenv_yaml, "~> 0.2"}
   ]
 end
 ```
