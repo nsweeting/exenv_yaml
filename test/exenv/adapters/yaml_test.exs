@@ -29,10 +29,10 @@ defmodule Exenv.Adapters.YamlTest do
       assert_vars(@test_vars)
     end
 
-    test "will set env vars from a specified yaml file and env" do
+    test "will set env vars from a specified yaml file and keys" do
       refute_vars(@test_vars)
 
-      Yaml.load(file: @test_yaml, env: "dev")
+      Yaml.load(file: @test_yaml, keys: ["dev"])
 
       assert_vars(@test_vars)
     end
