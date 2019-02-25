@@ -27,6 +27,8 @@ defmodule Exenv.Adapters.Yaml do
 
   @keys [Mix.env() |> to_string()]
 
+  defguardp is_env_val(val) when is_binary(val) or is_number(val) or is_boolean(val)
+
   @doc """
   Loads the system env vars from a `.yml` specified in the options.
 
@@ -81,8 +83,11 @@ defmodule Exenv.Adapters.Yaml do
     {:error, :malformed_yaml}
   end
 
-  defp parse_var({key, val}) when is_binary(key) and is_binary(val) do
-    {key |> String.trim() |> String.upcase(), String.trim(val)}
+  defp parse_var({key, val}) when is_binary(key) and is_env_val(val) do
+    with {:ok, key} <- safe_stringify(key),
+         {:ok, val} <- safe_stringify(val) do
+      {key |> String.upcase(), val}
+    end
   end
 
   defp parse_var(_var) do
@@ -95,5 +100,11 @@ defmodule Exenv.Adapters.Yaml do
 
   defp valid_var?(_) do
     false
+  end
+
+  defp safe_stringify(val) do
+    {:ok, val |> to_string() |> String.trim()}
+  rescue
+    _ -> nil
   end
 end

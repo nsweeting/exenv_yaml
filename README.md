@@ -45,7 +45,7 @@ You can then add this adapter to your configuration:
 ```elixir
 config :exenv, [
   adapters: [
-    {Exenv.Adapters.YAML, [file: "path/to/secrets.yml"]}
+    {Exenv.Adapters.Yaml, [file: "path/to/secrets.yml"]}
   ]
 ]
 ```
