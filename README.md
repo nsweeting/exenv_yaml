@@ -12,7 +12,7 @@ This package can be installed by adding `exenv_yaml` to your list of dependencie
 ```elixir
 def deps do
   [
-    {:exenv_yaml, "~> 0.2"}
+    {:exenv_yaml, "~> 0.3"}
   ]
 end
 ```
