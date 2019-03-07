@@ -6,7 +6,7 @@ defmodule Exenv.Adapters.Yaml.Parser do
 
   @spec read(binary() | charlist()) :: {:ok, map()} | {:error, :malformed_yaml}
   def read(yaml) do
-    :ok = Application.ensure_started(:yamerl_constr)
+    :ok = Application.ensure_started(:yamerl)
 
     yaml
     |> :yamerl_constr.string(@yamerl_options)
