@@ -1,7 +1,7 @@
 defmodule ExenvYaml.MixProject do
   use Mix.Project
 
-  @version "0.2.1"
+  @version "0.3.0"
 
   def project do
     [
@@ -49,7 +49,7 @@ defmodule ExenvYaml.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:yaml_elixir, "~> 2.1.0"},
+      {:yamerl, "~> 0.4"},
       {:exenv, "~> 0.2"},
       {:ex_doc, "~> 0.19", only: :dev, runtime: false}
     ]
