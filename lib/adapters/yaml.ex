@@ -25,6 +25,8 @@ defmodule Exenv.Adapters.Yaml do
 
   use Exenv.Adapter
 
+  alias Exenv.Adapters.Yaml.Parser
+
   @keys [Mix.env() |> to_string()]
 
   defguardp is_env_val(val) when is_binary(val) or is_number(val) or is_boolean(val)
@@ -54,15 +56,8 @@ defmodule Exenv.Adapters.Yaml do
 
   defp parse(opts) do
     with {:ok, raw} <- File.read(opts[:file]),
-         {:ok, yaml} <- read_yaml(raw) do
+         {:ok, yaml} <- Parser.read(raw) do
       parse_yaml(yaml, opts[:keys])
-    end
-  end
-
-  defp read_yaml(raw) do
-    case YamlElixir.read_from_string(raw) do
-      {:error, _} -> {:error, :malformed_yaml}
-      result -> result
     end
   end
 
