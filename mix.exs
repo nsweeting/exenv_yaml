@@ -25,7 +25,7 @@ defmodule ExenvYaml.MixProject do
 
   defp description do
     """
-    Exenv YAML makes loading environment variables from yaml sources easy.
+    Exenv Yaml makes loading environment variables from yaml sources easy.
     """
   end
 

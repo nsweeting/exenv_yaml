@@ -2,6 +2,14 @@ defmodule Exenv.Adapters.Yaml do
   @moduledoc """
   Loads env vars from `.yml` files.
 
+  You can use this adapter by adding it to your `:exenv` application config. The
+  options available can be seen in the `load/1` function.
+
+      config :exenv,
+        adapters: [
+          {Exenv.Adapters.Yaml, []}
+        ]
+
   Below is a simple example of a `.yml` file:
 
       prod:
@@ -37,8 +45,13 @@ defmodule Exenv.Adapters.Yaml do
   ## Options
     * `:file` - The file path in which to read the `.yml` from. By default this
     is a `secrets.yml` file in your projects root directory.
-    * `:keys` - A list of string keys within the YAML file to use for the secrets. By
-    default this is just the value from `Mix.env/0`.
+    * `:keys` - A list of string keys within the `yml` file to use for the secrets.
+    By default this is just the value from `Mix.env/0`.
+
+  ## Example
+
+      Exenv.Adapters.Yaml.load(file: "/path/to/file.yml", keys: ["common", "dev"])
+
   """
   @impl true
   def load(opts) do

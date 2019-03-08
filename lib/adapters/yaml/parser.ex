@@ -1,4 +1,6 @@
 defmodule Exenv.Adapters.Yaml.Parser do
+  @moduledoc false
+
   @yamerl_options [
     detailed_constr: true,
     str_node_as_binary: true
