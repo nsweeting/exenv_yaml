@@ -51,3 +51,5 @@ config :exenv, [
 ```
 
 By default, the file will be a `secrets.yml` file in your projects root directory.
+
+This adapter support secrets encryption. Please see the documentation for more details.

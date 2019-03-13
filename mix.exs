@@ -1,7 +1,7 @@
 defmodule ExenvYaml.MixProject do
   use Mix.Project
 
-  @version "0.3.0"
+  @version "0.4.0"
 
   def project do
     [
@@ -10,6 +10,7 @@ defmodule ExenvYaml.MixProject do
       elixir: "~> 1.7",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
+      name: "Exenv Yaml",
       description: description(),
       package: package(),
       docs: docs()
@@ -50,7 +51,7 @@ defmodule ExenvYaml.MixProject do
   defp deps do
     [
       {:yamerl, "~> 0.4"},
-      {:exenv, "~> 0.2"},
+      {:exenv, "~> 0.3"},
       {:ex_doc, "~> 0.19", only: :dev, runtime: false}
     ]
   end

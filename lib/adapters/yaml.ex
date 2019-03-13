@@ -29,6 +29,9 @@ defmodule Exenv.Adapters.Yaml do
 
       System.get_env("KEY1")
 
+  This adapter supports secrets encryption. Please see `Exenv.Encryption` for
+  more details on how to get that set up.
+
   """
 
   use Exenv.Adapter
@@ -47,6 +50,8 @@ defmodule Exenv.Adapters.Yaml do
     is a `secrets.yml` file in your projects root directory.
     * `:keys` - A list of string keys within the `yml` file to use for the secrets.
     By default this is just the value from `Mix.env/0`.
+    * `:encryption` - options used to decrypt files. Please see `Exenv.read_file/2`
+    for the options available.
 
   ## Example
 
@@ -57,7 +62,8 @@ defmodule Exenv.Adapters.Yaml do
   def load(opts) do
     opts = get_opts(opts)
 
-    with {:ok, env_vars} <- parse(opts) do
+    with {:ok, env_file} <- get_env_file(opts),
+         {:ok, env_vars} <- parse(env_file, opts[:keys]) do
       System.put_env(env_vars)
     end
   end
@@ -67,10 +73,14 @@ defmodule Exenv.Adapters.Yaml do
     Keyword.merge(default_opts, opts)
   end
 
-  defp parse(opts) do
-    with {:ok, raw} <- File.read(opts[:file]),
-         {:ok, yaml} <- Parser.read(raw) do
-      parse_yaml(yaml, opts[:keys])
+  defp get_env_file(opts) do
+    file = Keyword.get(opts, :file)
+    Exenv.read_file(file, opts)
+  end
+
+  defp parse(env_file, keys) do
+    with {:ok, yaml} <- Parser.read(env_file) do
+      parse_yaml(yaml, keys)
     end
   end
 
