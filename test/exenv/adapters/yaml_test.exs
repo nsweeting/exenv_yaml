@@ -33,6 +33,14 @@ defmodule Exenv.Adapters.YamlTest do
       assert_vars(@test_vars)
     end
 
+    test "will set env vars from a specified mfa" do
+      refute_vars(@test_vars)
+
+      Yaml.load(file: {__MODULE__, :test_yaml, []})
+
+      assert_vars(@test_vars)
+    end
+
     test "will set env vars from a specified yaml file and keys" do
       vars = @test_vars ++ [{"GOOD_KEY3", "baz"}]
       refute_vars(vars)
@@ -84,6 +92,17 @@ defmodule Exenv.Adapters.YamlTest do
       assert_vars(@test_vars)
     end
 
+    test "will set env vars from a specified mfa using a master key mfa" do
+      refute_vars(@test_vars)
+
+      Yaml.load(
+        file: {__MODULE__, :test_enc_yaml, []},
+        encryption: [master_key: {__MODULE__, :test_master_key, []}]
+      )
+
+      assert_vars(@test_vars)
+    end
+
     test "will set env vars from a specified encrypted yaml file using a MASTER_KEY env var" do
       refute_vars(@test_vars)
       master_key = File.read!(@test_master_key)
@@ -93,5 +112,17 @@ defmodule Exenv.Adapters.YamlTest do
 
       assert_vars(@test_vars)
     end
+  end
+
+  def test_yaml do
+    @test_yaml
+  end
+
+  def test_enc_yaml do
+    @test_enc_yaml
+  end
+
+  def test_master_key do
+    @test_master_key
   end
 end

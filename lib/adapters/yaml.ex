@@ -46,16 +46,19 @@ defmodule Exenv.Adapters.Yaml do
   Loads the system env vars from a `.yml` specified in the options.
 
   ## Options
-    * `:file` - The file path in which to read the `.yml` from. By default this
-    is a `secrets.yml` file in your projects root directory.
+    * `:file` - The file path or mfa that evaluates to a file path in which to
+      read the `.yml` from. By default this is a `secrets.yml` file in your projects
+      root directory.
     * `:keys` - A list of string keys within the `yml` file to use for the secrets.
-    By default this is just the value from `Mix.env/0`.
-    * `:encryption` - options used to decrypt files. Please see `Exenv.read_file/2`
-    for the options available.
+      By default this is just the value from `Mix.env/0`.
+    * `:encryption` - Options used to decrypt files. Please see `Exenv.read_file/2`
+      for the options available.
 
   ## Example
 
       Exenv.Adapters.Yaml.load(file: "/path/to/file.yml", keys: ["common", "dev"])
+
+      Exenv.Adapters.Yaml.load(file: {MyApp, :yaml_path, []}, keys: ["common", "dev"])
 
   """
   @impl true
